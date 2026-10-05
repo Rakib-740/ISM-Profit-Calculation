@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* =========================================================
+   TYPOGRAPHY SYSTEM
+   -  English UI   : Inter → system-ui
+   -  Bengali text : Noto Sans Bengali → Hind Siliguri
+   -  Mono         : ui-monospace → Consolas
+   ========================================================= */
+
+@layer base {
+  :root {
+    --font-english: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-bengali: 'Noto Sans Bengali', 'Hind Siliguri', sans-serif;
+  }
+
+  /* Base: English-first with Bengali fallback */
+  body {
+    font-family: var(--font-english);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Any element containing Bengali text picks up the Bengali font.
+     We use a utility class rather than a blanket unicode-range so
+     we keep precise control over where the Bengali font activates. */
+  .font-bengali {
+    font-family: var(--font-bengali);
+  }
+
+  /* Financial Bengali amounts — same font, slightly tighter tracking */
+  .font-bn-financial {
+    font-family: var(--font-bengali);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+
+  /* Tailwind @apply helpers for common patterns */
+  .input-base {
+    @apply w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm
+           text-slate-900 focus:bg-white focus:outline-none
+           focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+           transition-colors placeholder:text-slate-400;
+  }
+
+  /* Thin, unobtrusive scrollbars on Webkit */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1; /* slate-300 */
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; /* slate-400 */
+  }
+}
