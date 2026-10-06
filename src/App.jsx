@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import HomePage from './components/HomePage';
 import Header from './components/Header';
 import ProjectForm from './components/ProjectForm';
 import ReturnForm from './components/ReturnForm';
 import BulkInvestorInput from './components/BulkInvestorInput';
 import InvestorTable from './components/InvestorTable';
 import MessagePreview from './components/MessagePreview';
+import DocGenerator from './components/DocGenerator';
 import {
   INITIAL_PROJECT_DATA,
   INITIAL_RETURNS_DATA,
@@ -13,16 +15,23 @@ import {
 } from './initialData';
 import { calculateReturnMetrics } from './utils/messageGenerator';
 
+// ─── Pages ────────────────────────────────────────────────────────────────────
+// 'home'   → ISM Workshop home page (tool selector)
+// 'profit' → Profit Calculator (existing app)
+// 'docs'   → Project Documentation Management (new feature)
+
 export default function App() {
+  // ── Page routing ─────────────────────────────────────────────────────────
+  const [page, setPage] = useState('home');
+
+  // ── Profit Calculator state ───────────────────────────────────────────────
   const [project, setProject] = useState(INITIAL_PROJECT_DATA);
   const [returns, setReturns] = useState(INITIAL_RETURNS_DATA);
   const [activeReturnId, setActiveReturnId] = useState(INITIAL_RETURNS_DATA[0].id);
   const [nextReturnRange, setNextReturnRange] = useState(INITIAL_NEXT_RETURN);
 
-  // Active return object
   const activeReturn = returns.find((r) => r.id === activeReturnId) || returns[0];
 
-  // Calculate profit per lakh for current active return
   const { profitPerLakh } = activeReturn
     ? calculateReturnMetrics(
         activeReturn.totalInvestment,
@@ -40,10 +49,9 @@ export default function App() {
       returnNumber: nextNum,
       returnDate: '',
       daysTaken: '45',
-      totalInvestment: activeReturn ? activeReturn.totalInvestment : 3900000,
-      totalProfit: 400000,
+      totalInvestment: activeReturn ? activeReturn.totalInvestment : '',
+      totalProfit: '',
       passivePercentage: 50,
-      // Clone investor list from active return
       investors: JSON.parse(JSON.stringify(activeReturn?.investors || INITIAL_INVESTORS))
     };
     setReturns([...returns, newReturn]);
@@ -66,16 +74,22 @@ export default function App() {
 
   const handleUpdateInvestorsForActiveReturn = (newInvestorsList) => {
     if (!activeReturn) return;
-    const updatedReturn = {
-      ...activeReturn,
-      investors: newInvestorsList
-    };
-    handleUpdateReturn(updatedReturn);
+    handleUpdateReturn({ ...activeReturn, investors: newInvestorsList });
   };
 
+  // ── Render ────────────────────────────────────────────────────────────────
+  if (page === 'home') {
+    return <HomePage onSelectTool={setPage} />;
+  }
+
+  if (page === 'docs') {
+    return <DocGenerator onBack={() => setPage('home')} />;
+  }
+
+  // page === 'profit'
   return (
     <div className="min-h-screen bg-slate-100/70 text-slate-800 pb-16">
-      <Header />
+      <Header onBack={() => setPage('home')} />
 
       <main className="max-w-5xl mx-auto px-4 pt-6 space-y-6">
         {/* Section A: Project Information */}
@@ -115,7 +129,7 @@ export default function App() {
       </main>
 
       <footer className="max-w-5xl mx-auto px-4 mt-12 text-center text-xs text-slate-400">
-        ISM Return Message Generator • All calculations executed locally in browser
+        ISM Workshop • Profit Calculator • All calculations executed locally in browser
       </footer>
     </div>
   );
