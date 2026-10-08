@@ -16,7 +16,7 @@ export default function HomePage({ onSelectTool }) {
           </div>
           <div>
             <h1 className="text-xl font-bold text-slate-800 m-0 leading-tight tracking-tight">
-              ISM
+              ISM Workshop
             </h1>
             <p className="text-xs text-slate-500 m-0 font-bengali">
               আইএসএম ওয়ার্কশপ টুলস
