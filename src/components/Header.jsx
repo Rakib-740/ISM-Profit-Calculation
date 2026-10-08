@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, FileText, ChevronLeft } from 'lucide-react';
+import { FileText, ChevronLeft } from 'lucide-react';
 
 export default function Header({ onBack }) {
   return (
@@ -19,12 +19,16 @@ export default function Header({ onBack }) {
             </>
           )}
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-emerald-600 text-white rounded-xl shadow-xs">
-              <Calculator className="w-6 h-6" />
+            <div className="flex-shrink-0">
+              <img
+                src="/ISM-logo.jpeg"
+                alt="ISM Logo"
+                className="h-11 w-11 rounded-xl object-cover shadow-sm"
+              />
             </div>
             <div>
               <h1 className="text-xl font-bold text-slate-800 m-0 leading-tight tracking-tight">
-                ISM Return Message Generator
+                ISM
               </h1>
               <p className="text-xs text-slate-500 m-0 font-bengali">
                 আইএসএম প্রজেক্ট রিটার্ন মেসেজ এবং প্রফিট ক্যালকুলেটর

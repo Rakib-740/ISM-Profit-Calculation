@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calculator, ClipboardList, ArrowRight, TrendingUp, FileSpreadsheet } from 'lucide-react';
+import { ClipboardList, ArrowRight, TrendingUp, FileSpreadsheet, Calculator } from 'lucide-react';
 
 export default function HomePage({ onSelectTool }) {
   return (
@@ -7,12 +7,16 @@ export default function HomePage({ onSelectTool }) {
       {/* Site header */}
       <header className="bg-white border-b border-slate-200 shadow-xs">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center gap-3">
-          <div className="p-2.5 bg-emerald-600 text-white rounded-xl shadow-xs">
-            <Calculator className="w-6 h-6" />
+          <div className="flex-shrink-0">
+            <img
+              src="/ISM-logo.jpeg"
+              alt="ISM Logo"
+              className="h-12 w-12 rounded-xl object-cover shadow-sm"
+            />
           </div>
           <div>
             <h1 className="text-xl font-bold text-slate-800 m-0 leading-tight tracking-tight">
-              ISM Workshop
+              ISM
             </h1>
             <p className="text-xs text-slate-500 m-0 font-bengali">
               আইএসএম ওয়ার্কশপ টুলস
